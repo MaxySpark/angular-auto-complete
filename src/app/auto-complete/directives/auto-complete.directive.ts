@@ -1,16 +1,16 @@
-import { Directive, OnInit, Input, ElementRef, ViewContainerRef } from '@angular/core';
+import { Directive, OnInit, Input, ElementRef, ViewContainerRef, OnDestroy } from '@angular/core';
 import { AutoCompleteComponent } from '../components/auto-complete/auto-complete.component';
 import { OverlayRef, Overlay, ConnectionPositionPair } from '@angular/cdk/overlay';
 import { NgControl } from '@angular/forms';
 import { fromEvent } from 'rxjs';
 import { TemplatePortal } from '@angular/cdk/portal';
-import { untilDestroyed } from '@ngneat/until-destroy';
+import { untilDestroyed } from 'ngx-take-until-destroy';
 import { takeUntil, filter } from 'rxjs/operators';
 
 @Directive({
   selector: '[appAutoComplete]',
 })
-export class AutoCompleteDirective implements OnInit {
+export class AutoCompleteDirective implements OnInit, OnDestroy {
 
   @Input() appAutoComplete: AutoCompleteComponent;
   private overlayRef: OverlayRef;
@@ -77,6 +77,10 @@ export class AutoCompleteDirective implements OnInit {
       .withFlexibleDimensions(false)
       .withPush(false);
   }
+
+  ngOnDestroy() {
+    //
+  }
 }
 
 export function overlayClickOutside(overlayRef: OverlayRef, origin: HTMLElement) {
@@ -89,5 +93,5 @@ export function overlayClickOutside(overlayRef: OverlayRef, origin: HTMLElement)
         return notOrigin && notOverlay;
       }),
       takeUntil(overlayRef.detachments())
-    )
+    );
 }

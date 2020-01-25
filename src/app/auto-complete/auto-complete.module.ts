@@ -20,6 +20,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     CommonModule,
     OverlayModule,
   ],
+  entryComponents: [AutoCompleteComponent],
   exports: [
     OptionComponent,
     AutoCompleteComponent,
@@ -27,6 +28,6 @@ import { ReactiveFormsModule } from '@angular/forms';
     AutoCompleteDirective,
     FilterPipe,
     ReactiveFormsModule,
-  ]
+  ],
 })
 export class AutoCompleteModule { }
