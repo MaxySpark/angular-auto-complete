@@ -34,6 +34,9 @@ export class AutoCompleteDirective implements OnInit, OnDestroy {
     fromEvent(this.origin, 'focus').pipe(
       untilDestroyed(this)
     ).subscribe(() => {
+      if (this.overlayRef) {
+        return;
+      }
       this.openDropdown();
       this.appAutoComplete.optionsClick()
         .pipe(takeUntil(this.overlayRef.detachments()))
@@ -55,6 +58,8 @@ export class AutoCompleteDirective implements OnInit, OnDestroy {
 
     const template = new TemplatePortal(this.appAutoComplete.rootTemplate, this.vcr);
     this.overlayRef.attach(template);
+
+    overlayClickOutside(this.overlayRef, this.origin).subscribe(() => this.close());
   }
 
   private close() {
