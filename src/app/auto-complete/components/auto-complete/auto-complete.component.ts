@@ -8,12 +8,12 @@ import { AutoCompleteContentDirective } from '../../directives/auto-complete-con
   selector: 'app-auto-complete',
   templateUrl: './auto-complete.component.html',
   styleUrls: ['./auto-complete.component.scss'],
-  exportAs: 'appAutocomplete'
+  exportAs: 'appAutoComplete'
 })
 export class AutoCompleteComponent {
-  @ViewChild('root', {static: false}) rootTemplate: TemplateRef<any>;
+  @ViewChild('root', {static: true}) rootTemplate: TemplateRef<any>;
 
-  @ContentChild(AutoCompleteContentDirective, {static: false})
+  @ContentChild(AutoCompleteContentDirective, {static: true})
 
   content: AutoCompleteContentDirective;
 

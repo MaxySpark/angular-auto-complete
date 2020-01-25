@@ -8,7 +8,7 @@ import { untilDestroyed } from '@ngneat/until-destroy';
 import { takeUntil, filter } from 'rxjs/operators';
 
 @Directive({
-  selector: '[appAutoComplete]'
+  selector: '[appAutoComplete]',
 })
 export class AutoCompleteDirective implements OnInit {
 

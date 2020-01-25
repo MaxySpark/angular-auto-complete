@@ -6,6 +6,7 @@ import { OverlayModule } from '@angular/cdk/overlay';
 import { FilterPipe } from './pipes/filter.pipe';
 import { OptionComponent } from './components/option/option.component';
 import { AutoCompleteComponent } from './components/auto-complete/auto-complete.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -13,11 +14,19 @@ import { AutoCompleteComponent } from './components/auto-complete/auto-complete.
     AutoCompleteComponent,
     AutoCompleteContentDirective,
     AutoCompleteDirective,
-    OverlayModule,
     FilterPipe,
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    OverlayModule,
+  ],
+  exports: [
+    OptionComponent,
+    AutoCompleteComponent,
+    AutoCompleteContentDirective,
+    AutoCompleteDirective,
+    FilterPipe,
+    ReactiveFormsModule,
   ]
 })
 export class AutoCompleteModule { }
