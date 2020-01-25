@@ -12,7 +12,7 @@ import { takeUntil, filter } from 'rxjs/operators';
 })
 export class AutoCompleteDirective implements OnInit {
 
-  @Input() appAutocomplete: AutoCompleteComponent;
+  @Input() appAutoComplete: AutoCompleteComponent;
   private overlayRef: OverlayRef;
 
   constructor(
@@ -35,7 +35,7 @@ export class AutoCompleteDirective implements OnInit {
       untilDestroyed(this)
     ).subscribe(() => {
       this.openDropdown();
-      this.appAutocomplete.optionsClick()
+      this.appAutoComplete.optionsClick()
         .pipe(takeUntil(this.overlayRef.detachments()))
         .subscribe((value: string) => {
           this.control.setValue(value);
@@ -53,7 +53,7 @@ export class AutoCompleteDirective implements OnInit {
       positionStrategy: this.getOverlayPosition()
     });
 
-    const template = new TemplatePortal(this.appAutocomplete.rootTemplate, this.vcr);
+    const template = new TemplatePortal(this.appAutoComplete.rootTemplate, this.vcr);
     this.overlayRef.attach(template);
   }
 
