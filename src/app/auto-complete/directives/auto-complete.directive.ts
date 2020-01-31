@@ -1,4 +1,4 @@
-import { Directive, OnInit, Input, ElementRef, ViewContainerRef, OnDestroy } from '@angular/core';
+import { Directive, OnInit, Input, ElementRef, ViewContainerRef, OnDestroy, Output, EventEmitter } from '@angular/core';
 import { AutoCompleteComponent } from '../components/auto-complete/auto-complete.component';
 import { OverlayRef, Overlay, ConnectionPositionPair } from '@angular/cdk/overlay';
 import { NgControl } from '@angular/forms';
@@ -13,6 +13,9 @@ import { takeUntil, filter } from 'rxjs/operators';
 export class AutoCompleteDirective implements OnInit, OnDestroy {
 
   @Input() appAutoComplete: AutoCompleteComponent;
+  @Input() setValueOnCLick: boolean;
+  @Output() optionSelect = new EventEmitter<string>();
+
   private overlayRef: OverlayRef;
 
   constructor(
@@ -41,7 +44,10 @@ export class AutoCompleteDirective implements OnInit, OnDestroy {
       this.appAutoComplete.optionsClick()
         .pipe(takeUntil(this.overlayRef.detachments()))
         .subscribe((value: string) => {
-          this.control.setValue(value);
+          if (this.setValueOnCLick) {
+            this.control.setValue(value);
+          }
+          this.optionSelect.emit(value);
           this.close();
         });
     });
